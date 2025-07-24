@@ -206,6 +206,17 @@ DATABASES = {
 STATIC_URL = '/static/'
 ```
 
+## ⚙️ Important `settings.py` Configurations
+
+* `DEBUG = True` – Development only
+* `ALLOWED_HOSTS = ['*']` – Add hostnames/IPs in production
+* `INSTALLED_APPS` – Add your app names here
+* `MIDDLEWARE` – Request/response middleware chain
+* `TEMPLATES` – HTML template configuration
+* `DATABASES` – Default is SQLite, can use PostgreSQL, etc.
+* `STATIC_URL`, `MEDIA_URL` – For static & media files
+
+
 ---
 
 ## ✨ Django Key Features Summary
@@ -221,101 +232,6 @@ STATIC_URL = '/static/'
 
 ---
 
-Let me know if you want detailed notes on **forms, models, admin customization, or deployment setup.**
-
-
-## 🧠 Django Project Creation, Structure & Homepage Rendering – Full Notes
-
----
-
-### 🐍 Step-by-Step: Create Django Application with Homepage
-
-#### 1️⃣ Create Virtual Environment
-
-```bash
-python -m venv environ
-```
-
-Activate it:
-
-* Windows: `environ\Scripts\activate`
-* Linux/macOS: `source environ/bin/activate`
-
-#### 2️⃣ Install Django
-
-```bash
-pip install django
-```
-
-#### 3️⃣ Create Django Project
-
-```bash
-django-admin startproject sample
-cd sample
-```
-
-#### 4️⃣ Create Django App
-
-```bash
-python manage.py startapp basic
-```
-
-#### 5️⃣ Register App in `settings.py`
-
-In `INSTALLED_APPS`, add:
-
-```python
-'basic',
-```
-
-#### 6️⃣ Create View in `basic/views.py`
-
-```python
-from django.http import HttpResponse
-
-def index(request):
-    return HttpResponse("<h1>Welcome to Django Homepage</h1>")
-```
-
-#### 7️⃣ Configure URLs
-
-📄 In `basic/urls.py` (create this file):
-
-```python
-from django.urls import path
-from . import views
-
-urlpatterns = [
-    path('', views.index, name='index'),
-]
-```
-
-📄 In `sample/urls.py`:
-
-```python
-from django.contrib import admin
-from django.urls import path, include
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('basic/', include('basic.urls')),
-]
-```
-
-#### 8️⃣ Run Server
-
-```bash
-python manage.py runserver
-```
-
-Visit: `http://127.0.0.1:8000/basic/`
-
----
-
-
-
----
-
 ## ✨ Django Features
 
 * MTV (Model-Template-View) pattern
@@ -327,16 +243,6 @@ Visit: `http://127.0.0.1:8000/basic/`
 
 ---
 
-## ⚙️ Important `settings.py` Configurations
 
-* `DEBUG = True` – Development only
-* `ALLOWED_HOSTS = ['*']` – Add hostnames/IPs in production
-* `INSTALLED_APPS` – Add your app names here
-* `MIDDLEWARE` – Request/response middleware chain
-* `TEMPLATES` – HTML template configuration
-* `DATABASES` – Default is SQLite, can use PostgreSQL, etc.
-* `STATIC_URL`, `MEDIA_URL` – For static & media files
-
----
 
 
