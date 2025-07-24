@@ -312,27 +312,7 @@ Visit: `http://127.0.0.1:8000/basic/`
 
 ---
 
-## 🧱 Django Project Structure Explained
 
-```
-sample/
-├── sample/               ← Project directory (main settings)
-│   ├── __init__.py       ← Makes Python treat as a module
-│   ├── settings.py       ← All configurations
-│   ├── urls.py           ← URL routing
-│   ├── asgi.py           ← For ASGI servers (advanced)
-│   └── wsgi.py           ← For WSGI servers (default)
-├── basic/                ← Your Django app
-│   ├── migrations/       ← DB schema migrations
-│   ├── __init__.py       ← Makes app a Python module
-│   ├── admin.py          ← Admin site registrations
-│   ├── apps.py           ← App config
-│   ├── models.py         ← Data models
-│   ├── tests.py          ← Test cases
-│   └── views.py          ← Request/response logic
-├── db.sqlite3            ← Default database
-└── manage.py             ← CLI for managing project
-```
 
 ---
 
@@ -360,20 +340,3 @@ sample/
 ---
 
 
-## 📦 `__init__.py` File (in app/project folders)
-
-**Purpose:** Marks a directory as a Python package/module so Python can import it.
-
-**Without it:**
-
-- Python won’t recognize the folder as importable.
-
-**Use cases:**
-
-- Ensures the app or project can be imported.
-- Can contain startup code, signal registrations, or imports.
-
-```python
-# __init__.py
-# Usually empty, but can import signals or set up app configs
-```
