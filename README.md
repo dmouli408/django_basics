@@ -59,68 +59,6 @@ Django is a high-level Python Web framework that encourages rapid development an
 
 ---
 
-## 🛡️ Essential `settings.py` Options Explained
-
-```python
-# Enable debug mode (shows detailed errors in development)
-DEBUG = True  # Set to False in production!
-
-# Hosts/domain names your site can serve (use ['*'] for dev, set real domains in production)
-ALLOWED_HOSTS = ['*']
-
-# List of installed apps (add your app names here)
-INSTALLED_APPS = [
-    # ...default Django apps...
-    'your_app',  # Add your custom app(s)
-]
-
-# Middleware chain (handles requests/responses)
-MIDDLEWARE = [
-    # ...default middleware...
-]
-
-# Template engine configuration
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # Add template directories if needed
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                # ...default context processors...
-            ],
-        },
-    },
-]
-
-# Database settings (default is SQLite, can use PostgreSQL, MySQL, etc.)
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-# Static files (CSS, JS, images)
-STATIC_URL = '/static/'
-
-# Media files (user uploads)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-```
-
-**Key Explanations:**
-
-- `DEBUG`: Shows detailed error pages and auto-reloads code. **Never use `True` in production!**
-- `ALLOWED_HOSTS`: List of valid hostnames for your site. Use `['*']` for local dev, set real domains for deployment.
-- `INSTALLED_APPS`: Register all Django and custom apps here.
-- `MIDDLEWARE`: Controls request/response processing (security, sessions, etc.).
-- `TEMPLATES`: Configures template engine and context processors.
-- `DATABASES`: Database connection settings. Default is SQLite; can be changed to PostgreSQL, MySQL, etc.
-- `STATIC_URL`/`MEDIA_URL`: URLs for serving static and media files.
-- `MEDIA_ROOT`: Filesystem path for storing uploaded media.
-| `static/`                  | App         | Static files: CSS, JS, images.                                                     |
----
 
 ### 🏗️ Django Project Structure (after `django-admin startproject myproject`)
 
@@ -231,49 +169,41 @@ appname/
 
 ---
 
-## 📄 settings.py Key Configurations
+## 🛡️ Essential `settings.py` Options Explained
 
 ```python
+# Enable debug mode (shows detailed errors in development)
+DEBUG = True  # Set to False in production!
+
+# Hosts/domain names your site can serve (use ['*'] for dev, set real domains in production)
+ALLOWED_HOSTS = ['*']
+
+# List of installed apps (add your app names here)
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'basic',  # Custom app
+    # ...default Django apps...
+    'your_app',  # Add your custom app(s)
 ]
 
+# Middleware chain (handles requests/responses)
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # ...default middleware...
 ]
 
-ROOT_URLCONF = 'myproject.urls'
-
+# Template engine configuration
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # For custom template paths
+        'DIRS': [],  # Add template directories if needed
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                # ...default context processors...
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'myproject.wsgi.application'
-
+# Database settings (default is SQLite, can use PostgreSQL, MySQL, etc.)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -281,21 +211,25 @@ DATABASES = {
     }
 }
 
+# Static files (CSS, JS, images)
 STATIC_URL = '/static/'
+
+# Media files (user uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 ```
 
----
+**Key Explanations:**
 
-
-## ⚙️ Important `settings.py` Configurations
-
-* `DEBUG = True` – Development only
-* `ALLOWED_HOSTS = ['*']` – Add hostnames/IPs in production
-* `INSTALLED_APPS` – Add your app names here
-* `MIDDLEWARE` – Request/response middleware chain
-* `TEMPLATES` – HTML template configuration
-* `DATABASES` – Default is SQLite, can use PostgreSQL, etc.
-* `STATIC_URL`, `MEDIA_URL` – For static & media files
+- `DEBUG`: Shows detailed error pages and auto-reloads code. **Never use `True` in production!**
+- `ALLOWED_HOSTS`: List of valid hostnames for your site. Use `['*']` for local dev, set real domains for deployment.
+- `INSTALLED_APPS`: Register all Django and custom apps here.
+- `MIDDLEWARE`: Controls request/response processing (security, sessions, etc.).
+- `TEMPLATES`: Configures template engine and context processors.
+- `DATABASES`: Database connection settings. Default is SQLite; can be changed to PostgreSQL, MySQL, etc.
+- `STATIC_URL`/`MEDIA_URL`: URLs for serving static and media files.
+- `MEDIA_ROOT`: Filesystem path for storing uploaded media.
+| `static/`                  | App         | Static files: CSS, JS, images.                                                     |
 
 ---
 
