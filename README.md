@@ -176,7 +176,7 @@ appname/
 DEBUG = True  # Set to False in production!
 
 # Hosts/domain names your site can serve (use ['*'] for dev, set real domains in production)
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['your_IP_address', 'your_web_site_name']
 
 # List of installed apps (add your app names here)
 INSTALLED_APPS = [
