@@ -82,7 +82,6 @@ myproject/
 
 - **myproject/**
   - *Definition*: Main project package (contains settings and config).
-
   - **__init__.py**
     - *Definition*: Marks this directory as a Python package.
     - *Usage*: Usually empty, but can include startup code.
@@ -335,6 +334,233 @@ ipconfig
 
 Visit: `http://(your IP Address)/basic/`
 
+
+
+
+
+
+# 🏫 Django Authentication: Built-in User (with form.as_p) & Custom User (manual fields, no form.as_p)
+
 ---
 
+## 1️⃣ Built-in Django User: Registration & Login (Bootstrap, with form.as_p)
+
+### Registration View
+```python
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', {'form': form})
+```
+
+### Login View (Django built-in)
+```python
+from django.contrib.auth import views as auth_views
+
+# In urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('register/', views.register, name='register'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+]
+```
+
+### Bootstrap Registration Template (`register.html`) — uses `form.as_p`
+```html
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">Register</div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success w-100">Sign Up</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+### Bootstrap Login Template (`login.html`) — uses `form.as_p`
+```html
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">Login</div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+## 2️⃣ Custom User Model (No forms.py): Registration & Login (Bootstrap, **manual fields, no form.as_p**)
+
+### models.py
+```python
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+
+DEPARTMENT_CHOICES = [
+    ('HR', 'Human Resources'),
+    ('IT', 'Information Technology'),
+    ('FIN', 'Finance'),
+    ('MKT', 'Marketing'),
+]
+
+DESIGNATION_CHOICES = [
+    ('JR', 'Junior'),
+    ('SR', 'Senior'),
+    ('MG', 'Manager'),
+    ('DIR', 'Director'),
+]
+
+class CustomUser(AbstractUser):
+    name = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=15)
+    email = models.EmailField(unique=True)
+    department = models.CharField(max_length=3, choices=DEPARTMENT_CHOICES)
+    designation = models.CharField(max_length=4, choices=DESIGNATION_CHOICES)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username', 'name', 'phone_number', 'department', 'designation']
+```
+
+### settings.py
+```python
+AUTH_USER_MODEL = 'myapp.CustomUser'
+```
+
+### Registration View (no forms.py, inline form class)
+```python
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
+from .models import CustomUser
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = CustomUser
+        fields = ['name', 'phone_number', 'email', 'department', 'designation', 'password1', 'password2']
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'register.html', {'form': form})
+```
+
+### urls.py
+```python
+from django.urls import path
+from . import views
+from django.contrib.auth import views as auth_views
+
+urlpatterns = [
+    path('register/', views.register, name='register'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+]
+```
+
+### Bootstrap Registration Template (`register.html`) — **manual fields, no form.as_p**
+```html
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">Register</div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="id_name" class="form-label">Name</label>
+              {{ form.name }}
+            </div>
+            <div class="mb-3">
+              <label for="id_phone_number" class="form-label">Phone Number</label>
+              {{ form.phone_number }}
+            </div>
+            <div class="mb-3">
+              <label for="id_email" class="form-label">Email</label>
+              {{ form.email }}
+            </div>
+            <div class="mb-3">
+              <label for="id_department" class="form-label">Department</label>
+              {{ form.department }}
+            </div>
+            <div class="mb-3">
+              <label for="id_designation" class="form-label">Designation</label>
+              {{ form.designation }}
+            </div>
+            <div class="mb-3">
+              <label for="id_password1" class="form-label">Password</label>
+              {{ form.password1 }}
+            </div>
+            <div class="mb-3">
+              <label for="id_password2" class="form-label">Confirm Password</label>
+              {{ form.password2 }}
+            </div>
+            <button type="submit" class="btn btn-success w-100">Sign Up</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+### Bootstrap Login Template (`login.html`) — **manual fields, no form.as_p**
+```html
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">Login</div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="id_username" class="form-label">Email</label>
+              {{ form.username }}
+            </div>
+            <div class="mb-3">
+              <label for="id_password" class="form-label">Password</label>
+              {{ form.password }}
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+---
 
