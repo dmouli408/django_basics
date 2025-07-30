@@ -431,5 +431,4 @@ urlpatterns = [
 | 2    | Connect URLs          | `urls.py`                 |
 | 3    | Create HTML templates | `login.html`, `home.html` |
 
-
 ---
