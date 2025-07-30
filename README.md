@@ -337,4 +337,86 @@ Visit: `http://(your IP Address)/basic/`
 
 ---
 
+# Django Login Page with Conditional Homepage
+
+---
+
+## ✅ 1. Create the Views (`views.py`)
+
+```python
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login as auth_login
+
+def home(request):
+    return render(request, 'authentication/home.html')
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('usern')
+        password = request.POST.get('pword')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            auth_login(request, user)
+            return redirect('home')
+        else:
+            return redirect('login')
+    return render(request, 'authentication/login.html')
+```
+
+> ⚡ **Fixes:** Correct variable names (`username`, `password`) used.
+
+---
+
+## ✅ 2. Setup URLs (`urls.py`)
+
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('login/', views.login_view, name='login'),
+]
+```
+
+> ✉ **Note:** This connects your views to respective routes.
+
+---
+
+## ✅ 3. Create Templates
+
+### 📄 `login.html`
+
+```html
+<h2>Login</h2>
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="usern" placeholder="Username" required>
+    <input type="password" name="pword" placeholder="Password" required>
+    <button type="submit">Login</button>
+</form>
+```
+
+### 🏠 `home.html`
+
+```html
+{% if user.is_authenticated %}
+    <h2>Welcome, {{ user.username }}</h2>
+    <p>This is your homepage.</p>
+{% else %}
+    <p>You are not logged in. <a href="{% url 'login' %}">Login here</a></p>
+{% endif %}
+```
+
+> 🎨 **Tip:** Use Bootstrap or custom CSS for better form styling.
+
+---
+
+## ✅ Summary Table
+
+| Step | Description           | File(s)                   |
+| ---- | --------------------- | ------------------------- |
+| 1    | Define view functions | `views.py`                |
+| 2    | Connect URLs          | `urls.py`                 |
+| 3    | Create HTML templates | `login.html`, `home.html` |
 
