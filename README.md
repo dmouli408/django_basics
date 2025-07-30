@@ -1,5 +1,6 @@
 # 📓 Django Full Notes: Basic Structure, Features, Settings
 
+
 ---
 
 # 📑 Index
