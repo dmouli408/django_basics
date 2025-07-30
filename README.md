@@ -401,7 +401,7 @@ urlpatterns = [
 ```html
 <h2>Login</h2>
 <form method="POST">
- ```{% csrf_token %}```
+{% raw %} {% csrf_token %} {% endraw %}
     <input type="text" name="usern" placeholder="Username" required>
     <input type="password" name="pword" placeholder="Password" required>
     <button type="submit">Login</button>
