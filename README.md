@@ -401,7 +401,7 @@ urlpatterns = [
 ```html
 <h2>Login</h2>
 <form method="POST">
-``` {% csrf_token %} ```
+    {% raw %}{% csrf_token %}{% endraw %}
     <input type="text" name="usern" placeholder="Username" required>
     <input type="password" name="pword" placeholder="Password" required>
     <button type="submit">Login</button>
@@ -411,12 +411,12 @@ urlpatterns = [
 ### 🏠 `home.html`
 
 ```html
-{% if user.is_authenticated %}
+{% raw %}{% if user.is_authenticated %}{% endraw %}
     <h2>Welcome, {{ user.username }}</h2>
     <p>This is your homepage.</p>
-{% else %}
-    <p>You are not logged in. <a href=" ``` {% url 'login' %} ``` ">Login here</a></p>
-{% endif %}
+{% raw %}{% else %}{% endraw %}
+    <p>You are not logged in. <a href="{% raw %}{% url 'login' %}{% endraw %}">Login here</a></p>
+{% raw %}{% endif %}{% endraw %}
 ```
 
 > 🎨 **Tip:** Use Bootstrap or custom CSS for better form styling.
@@ -431,3 +431,5 @@ urlpatterns = [
 | 2    | Connect URLs          | `urls.py`                 |
 | 3    | Create HTML templates | `login.html`, `home.html` |
 
+
+---
