@@ -401,7 +401,7 @@ urlpatterns = [
 ```html
 <h2>Login</h2>
 <form method="POST">
-` {% csrf_token %} `
+``` {% csrf_token %} ```
     <input type="text" name="usern" placeholder="Username" required>
     <input type="password" name="pword" placeholder="Password" required>
     <button type="submit">Login</button>
@@ -415,7 +415,7 @@ urlpatterns = [
     <h2>Welcome, {{ user.username }}</h2>
     <p>This is your homepage.</p>
 {% else %}
-    <p>You are not logged in. <a href=" ` {% url 'login' %} ` ">Login here</a></p>
+    <p>You are not logged in. <a href=" ``` {% url 'login' %} ``` ">Login here</a></p>
 {% endif %}
 ```
 
