@@ -348,9 +348,13 @@ Visit: `http://(your IP Address)/basic/`
 
 ---
 
-# Django Login Page with Conditional Homepage
-
 ---
+
+layout: default
+title: Django Login Page Notes
+------------------------------
+
+# Django Login Page with Conditional Homepage
 
 ## ✅ 1. Create the Views (`views.py`)
 
@@ -430,5 +434,15 @@ urlpatterns = [
 | 1    | Define view functions | `views.py`                |
 | 2    | Connect URLs          | `urls.py`                 |
 | 3    | Create HTML templates | `login.html`, `home.html` |
+
+---
+
+This page was created for Jekyll-compatible GitHub Pages. Make sure your `_config.yml` enables Markdown:
+
+```yaml
+markdown: kramdown
+theme: minima
+```
+
 
 ---
