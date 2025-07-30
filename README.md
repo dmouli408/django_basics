@@ -415,7 +415,7 @@ urlpatterns = [
     <h2>Welcome, {{ user.username }}</h2>
     <p>This is your homepage.</p>
 {% else %}
-    <p>You are not logged in. <a href=" ` {% url 'login' %} `">Login here</a></p>
+    <p>You are not logged in. <a href=" ` {% url 'login' %} ` ">Login here</a></p>
 {% endif %}
 ```
 
